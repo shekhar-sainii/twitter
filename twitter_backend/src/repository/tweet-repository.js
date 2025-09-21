@@ -12,30 +12,23 @@ class TweetRepository {
         }
     }
 
-    async get() {
+    async getAll(offset, limit) {
         try {
-            const tweets = await Tweet.find({})
+            const tweets = await Tweet.find({}).skip(offset).limit(limit)
             return tweets
         } catch (error) {
             console.log(error);
         }
     }
 
-async getWithComments(id) {
-    try {
-        const tweet = await Tweet.findById(id);
-        if (!tweet) {
-            console.log('Tweet not found');
-            return null;
+    async getWithComments(id) {
+               try {
+            const tweets = await Tweet.findById(id).populate({path: 'comments'}).lean()
+            return tweets
+        } catch (error) {
+            console.log(error);
         }
-
-        // Now we can call populate on the tweet document
-        const populatedTweet = await tweet.populate('comments');
-        return populatedTweet;
-    } catch (error) {
-        console.log(error);
     }
-}
 
     async getById(id) {
 

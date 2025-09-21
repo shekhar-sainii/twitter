@@ -40,7 +40,6 @@ app.listen(2000, async () => {
     // });
     // console.log(tweet);
 
-
     // tweet.comments.push({ content: 'First Comment' })
 
     // await tweet.save()
@@ -60,10 +59,8 @@ app.listen(2000, async () => {
     // console.log(tweet);
     // console.log(comment);
 
+    const tweet = await tweetRepository.getAll(0, 4);
 
-    const tweet = await tweetRepository.getWithComments('68cf9430bc7f849ac93ca102')
-
-    console.log(tweet);
-
+    console.log(tweet[0].contentWithEmail);
 
 })
